@@ -1,6 +1,7 @@
-"use strict"
 // JS прототипно ориентированный
 
+
+//..................................................................................................................
 //СОРТИРОВКА МАССИВА С ЦИФРАМИ  
 const arr = [2, 12, 26, 8, 10];
 arr.sort(compareNum);
@@ -12,7 +13,7 @@ function compareNum(a, b) {
 compareNum()
 
 
-
+//..................................................................................................................
 //ПЕРЕБОР МАССИВА 
 const arr = [1, 2, 3, 6, 8];
 arr.forEach(function(item, namber, arr){
@@ -20,7 +21,7 @@ arr.forEach(function(item, namber, arr){
 })
 
 
-
+//..................................................................................................................
 //СКОЛЬКО СВОЙСТВ В ОБЪЕКТЕ
 const options = {
     name: "test",
@@ -34,7 +35,7 @@ const options = {
 
 console.log(Object.keys(options).length);
 
-
+//..................................................................................................................
 //ФИБОНАЧИ
 function fib(number) {
     if (number < 0)
@@ -59,6 +60,25 @@ function fib(number) {
 
 
 
+//..................................................................................................................
+// ФАКТОРИАЛ В РЕКУРСИИ
+
+function factorial(data) {
+    if (typeof(data) !== 'number' || !Number.isInteger(data)) {
+        console.log('Ошибочка');
+    }
+
+    if (data >= 1) {
+        return data * factorial (data -1);
+    } else {
+        return 1
+    }
+}
+console.log(factorial(5))
+
+
+
+//..................................................................................................................
 //КАКОЕ ВАШЕ КУПЕ
 function calculateVolumeAndArea(length) {
     if (typeof (length) !== 'number'|| length < 0 || !Number.isInteger(length)) {
@@ -74,7 +94,7 @@ return console.log("Ваше купе: " + (Math.ceil(length / 4)));
 calculateVolumeAndArea(7);  
 
 
-
+//..................................................................................................................
 // РАБОТА С ОБЪЕКТАМИ
 const personalPlanPeter = {
     name: "Peter",
@@ -121,6 +141,8 @@ function showProgrammingLangs(plan) {
 
 showProgrammingLangs(personalPlanPeter);
 
+
+//..................................................................................................................
 // Вычисление бюджета хватает ли
 const shoppingMallData = {
     shops: [
@@ -179,3 +201,58 @@ function isBudgetEnough(data) {
 }
             
 isBudgetEnough(shoppingMallData)
+
+//..................................................................................................................
+// Рекурсия 
+
+let students = {
+    js: [{
+        name: 'John',
+        progress: 100
+    }, {
+        name: 'Ivan',
+        progress: 60
+    }],
+
+    html: {
+        basic: [{
+            name: 'Peter',
+            progress: 20
+        },{
+            name: 'Ann',
+            progress: 18
+        }],
+
+        pro: [{
+            name: 'Sam',
+            progress: 10
+        }],
+        some: {
+
+        }
+    }
+};
+
+function getTotalProgressByRecursion(data) {
+    if (Array.isArray(data)) {
+        let total = 0;
+
+        for (let i = 0; i < data.length; i++) {
+            total += data[i].progress;
+        }
+
+        return [total, data.length]
+    } else {
+        let total = [0 ,0];
+        for (let subData of Object.values(data)) {
+            const subDataArr = getTotalProgressByRecursion(subData);
+            total[0] += subDataArr[0];
+            total[1] += subDataArr[1];
+        }
+
+        return total;
+    }
+}
+
+const result = getTotalProgressByRecursion(students)
+console.log(result[0] / result[1]);
